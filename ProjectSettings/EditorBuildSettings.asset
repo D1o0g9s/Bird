@@ -4,4 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/ZRNAssets/005030_06196_1_1/Scenes/sample.unity
+    guid: a7a36372eda90354bab64bfd88136aad
