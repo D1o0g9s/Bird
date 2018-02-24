@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
+    public const float maxXVelocity = 10.0f;
+    public const float XVelocityScalingFactor = 0.2f; // scales deltaY of controller from ground / lower collider
 
     private long lLowerTick = 0;
     private long lUpperTick = 0;
@@ -13,6 +15,8 @@ public class PlayerMovement : MonoBehaviour {
 
     [SerializeField] private GameObject lowerCollider;
     [SerializeField] private GameObject upperCollider;
+    [SerializeField] private GameObject leftControllerCollider;
+    [SerializeField] private GameObject rightControllerCollider;
 
     TriggerTime lowerColliderScript;
     TriggerTime upperColliderScript;
@@ -21,6 +25,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
         lowerColliderScript = lowerCollider.GetComponent<TriggerTime>();
         upperColliderScript = upperCollider.GetComponent<TriggerTime>();
+        //gameObject.GetComponent<Rigidbody>().AddForce(0.0f, 0.0f, 10.0f, ForceMode.VelocityChange);
     }
 	
 	// Update is called once per frame
@@ -44,5 +49,7 @@ public class PlayerMovement : MonoBehaviour {
 
             gameObject.GetComponent<Rigidbody>().AddForce(0.0f, Mathf.Max(0.0f, Mathf.Min(0.3f / (float) (rLowerTick - rUpperTick) * (float) TimeSpan.TicksPerSecond, 10.0f)), 0.0f, ForceMode.VelocityChange);
         }
+
+        
     }
 }

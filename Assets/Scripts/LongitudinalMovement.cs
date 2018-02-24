@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LongitudinalMovement : MonoBehaviour {
-	public const int maxZVelocity = 100;
-	public const int ZVelocityIncrement = 5; // amount by which to increment ZVelocity each flap
-	public const int maxXVelocity = 100;
-	public const int XVelocityScalingFactor = 0.2; // scales deltaY of controller from ground / lower collider
+	public const float maxZVelocity = 10.0f;
+	public const float ZVelocityIncrement = 0.5f; // amount by which to increment ZVelocity each flap
+	public const float maxXVelocity = 10.0f;
+	public const float XVelocityScalingFactor = 0.2f; // scales deltaY of controller from ground / lower collider
 
     // use this for initialization
     void Start () {
@@ -17,8 +17,8 @@ public class LongitudinalMovement : MonoBehaviour {
 		float xLeft = 0;
 		float xRight = 0;
 		float deltax = xLeft - xRight;
-		if (this.GetComponent<Rigidbody> ().velocity.x < maxXVelocity && this.GetComponent<Rigidbody>.velocity.x > -1 * maxXVelocity) {
-			this.GetComponent<Rigidbody> ().AddForce (deltay * XVelocityScalingFactor, 0.0f, 0.0f, ForceMode.VelocityChange);
+		if (this.GetComponent<Rigidbody> ().velocity.x < maxXVelocity && this.GetComponent<Rigidbody>().velocity.x > -1 * maxXVelocity) {
+			this.GetComponent<Rigidbody> ().AddForce (deltax * XVelocityScalingFactor, 0.0f, 0.0f, ForceMode.VelocityChange);
 		}
     }
 
