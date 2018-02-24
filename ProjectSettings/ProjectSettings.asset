@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 14
-  productGUID: 00000000000000000000000000000000
+  productGUID: f9c1b9e8d55e742bf99cd07ad4973707
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   defaultScreenOrientation: 4
@@ -16,7 +16,7 @@ PlayerSettings:
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
-  m_ShowUnitySplashScreen: 1
+  m_ShowUnitySplashScreen: 0
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
@@ -714,7 +714,7 @@ PlayerSettings:
     Purchasing: 0
     UNet: 0
     Unity_Ads: 0
-  facebookSdkVersion: 
+  facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
   cloudProjectId: ab587b3b-f0a0-44ed-b47c-8f337ec1a6af
   projectName: 
