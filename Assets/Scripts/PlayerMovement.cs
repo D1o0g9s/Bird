@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour {
         upperColliderScript = upperCollider.GetComponent<TriggerTime>();
         //gameObject.GetComponent<Rigidbody>().AddForce(0.0f, 0.0f, 10.0f, ForceMode.VelocityChange);
     }
-	
+
 	// Update is called once per frame
 	void FixedUpdate () {
         lUpperTick = upperColliderScript.leftCollisionTime;
@@ -51,16 +51,26 @@ public class PlayerMovement : MonoBehaviour {
             gameObject.GetComponent<Rigidbody>().AddForce(0.0f, Mathf.Max(0.0f, Mathf.Min(2.0f / (float) (rLowerTick - rUpperTick) * (float) TimeSpan.TicksPerSecond, 50.0f)), 0.0f, ForceMode.Impulse);
         }
 
-        Vector3 forwardDir = new Vector3(camera.transform.forward.x, 0.0f, camera.transform.forward.z) / 8.0f;
+        Vector3 forwardDir = new Vector3(camera.transform.forward.x, 0.0f, camera.transform.forward.z);
         Vector3 upwardDir = new Vector3(0.0f, 1.0f, 0.0f);
-        Vector3 turnOffset = Vector3.zero;
-        float rotAngle = 0;
 
-        float deltaLeftY = leftControllerCollider.transform.position.y - lowerCollider.transform.position.y - 1;
-        float deltaRightY = rightControllerCollider.transform.position.y - lowerCollider.transform.position.y - 1;
+        float leftY = leftControllerCollider.transform.position.y;
+        float rightY = rightControllerCollider.transform.position.y;
+        float leftX = leftControllerCollider.transform.position.x;
+        float rightX = rightControllerCollider.transform.position.x;
+        float centerX = Mathf.Abs(leftX - rightX);
+        float centerY = Mathf.Abs(leftY - rightY);
+
+        float rotAngleLeft = Mathf.Atan((leftY - centerY) / (leftX - centerX));
+        float rotAngleRight = Mathf.Atan((rightY - centerY) / (rightX - centerX));
+        float rotAngle = Mathf.lerp(rotAngleLeft, rotAngleRight, 0.5);
+
+        //float deltaLeftY = leftControllerCollider.transform.position.y - lowerCollider.transform.position.y - 1;
+        //float deltaRightY = rightControllerCollider.transform.position.y - lowerCollider.transform.position.y - 1;
+
         //Debug.Log("deltaLeftY: " + deltaLeftY);
         //Debug.Log("deltaRightY: " + deltaRightY);
-
+        /*
         if (deltaLeftY > 0 ^ deltaRightY > 0) {
             turnOffset = Vector3.Cross(forwardDir, upwardDir).normalized * XVelocityScalingFactor * (deltaRightY - deltaLeftY);
             if (turnOffset.magnitude > forwardDir.magnitude) {
@@ -70,11 +80,20 @@ public class PlayerMovement : MonoBehaviour {
             if (deltaLeftY < deltaRightY)
                 rotAngle *= -1;
         }
+        */
 
+        //turn right
+        if (leftY > centerY){
+            this.GetComponent<Rigidbody>().velocity.Rotate(upwardDir, rotAngle * Time.deltaTime);
+        } else {
+            this.GetComponent<Rigidbody>().velocity.Rotate(upwardDir, rotAngle * -1 * Time.deltaTime);
+        }
+        /*
         Debug.Log("forwardDir: " + forwardDir);
         Debug.Log("turnOffset: " + turnOffset);
 
         transform.position +=  2.0f * (forwardDir - turnOffset).normalized * Time.deltaTime;
         transform.Rotate(upwardDir, rotAngle);
+        */
     }
 }
