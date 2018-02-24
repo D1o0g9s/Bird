@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TriggerTime : MonoBehaviour {
-    public const float maxZVelocity = 10.0f;
-    public const float ZVelocityIncrement = 0.8f;
+    public const float maxZVelocity = 500.0f;
+    public const float ZVelocityIncrement = 2.50f;
 
     [SerializeField] private GameObject leftBox;
     [SerializeField] private GameObject rightBox;
@@ -18,17 +18,10 @@ public class TriggerTime : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject == leftBox) {
             leftCollisionTime = DateTime.Now.Ticks;
-            Debug.Log(leftCollisionTime);
+            //Debug.Log(leftCollisionTime);
         } else if (other.gameObject == rightBox) {
             rightCollisionTime = DateTime.Now.Ticks;
-            Debug.Log(rightCollisionTime);
-        }
-        
-
-        if (player.GetComponent<Rigidbody>().velocity.z < maxZVelocity) {
-            player.GetComponent<Rigidbody>().velocity += player.transform.forward * ZVelocityIncrement;
-            Debug.Log(player.transform.forward);
-            //player.GetComponent<Rigidbody>().AddForce(0.0f, 0.0f, ZVelocityIncrement, ForceMode.VelocityChange);
+            //Debug.Log(rightCollisionTime);
         }
     }
 }

@@ -212,7 +212,6 @@ MonoBehaviour:
   leftBox: {fileID: 1437294058}
   rightBox: {fileID: 1462308456}
   player: {fileID: 2002129177}
-  camera: {fileID: 0}
   leftCollisionTime: 0
   rightCollisionTime: 0
 --- !u!23 &400635637
@@ -653,6 +652,10 @@ Mesh:
 GameObject:
   m_PrefabParentObject: {fileID: 124034, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
   m_PrefabInternal: {fileID: 740698275}
+--- !u!1 &1145391857 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 155680, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
+  m_PrefabInternal: {fileID: 740698275}
 --- !u!1 &1174113811
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,7 +855,6 @@ MonoBehaviour:
   leftBox: {fileID: 1437294058}
   rightBox: {fileID: 1462308456}
   player: {fileID: 2002129177}
-  camera: {fileID: 0}
   leftCollisionTime: 0
   rightCollisionTime: 0
 --- !u!1 &1437294058
@@ -1252,6 +1254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0145b510a8e3db4b9225692f470a01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 1145391857}
   lowerCollider: {fileID: 400635633}
   upperCollider: {fileID: 1210956134}
   leftControllerCollider: {fileID: 990806879}
