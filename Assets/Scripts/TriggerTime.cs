@@ -5,10 +5,19 @@ using UnityEngine;
 
 public class TriggerTime : MonoBehaviour {
 
-    public long collisionTime;
+    [SerializeField] private GameObject leftBox;
+    [SerializeField] private GameObject rightBox;
+
+    public long leftCollisionTime;
+    public long rightCollisionTime;
 
     private void OnTriggerEnter(Collider other) {
-        collisionTime = DateTime.Now.Ticks;
-        Debug.Log(collisionTime);
+        if (other.gameObject == leftBox) {
+            leftCollisionTime = DateTime.Now.Ticks;
+            Debug.Log(leftCollisionTime);
+        } else if (other.gameObject == rightBox) {
+            rightCollisionTime = DateTime.Now.Ticks;
+            Debug.Log(rightCollisionTime);
+        }
     }
 }
