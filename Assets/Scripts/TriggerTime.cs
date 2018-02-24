@@ -18,17 +18,10 @@ public class TriggerTime : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject == leftBox) {
             leftCollisionTime = DateTime.Now.Ticks;
-            Debug.Log(leftCollisionTime);
+            //Debug.Log(leftCollisionTime);
         } else if (other.gameObject == rightBox) {
             rightCollisionTime = DateTime.Now.Ticks;
-            Debug.Log(rightCollisionTime);
-        }
-        
-
-        if (player.GetComponent<Rigidbody>().velocity.z < maxZVelocity) {
-            player.GetComponent<Rigidbody>().velocity += camera.transform.forward * ZVelocityIncrement;
-            Debug.Log(player.transform.forward);
-            //player.GetComponent<Rigidbody>().AddForce(0.0f, 0.0f, ZVelocityIncrement, ForceMode.VelocityChange);
+            //Debug.Log(rightCollisionTime);
         }
     }
 }
