@@ -14,12 +14,12 @@ public class MatsuriSoundController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	/*void Update () {
 		if (timeNextRing < Time.time)
 		{
 			this.GetComponent<AudioSource>().PlayOneShot(MatsuriSounds[Random.Range(0, 4)]);
 			timeNextRing = Time.time + Random.Range(3.0f, 10.0f);
 		}
-	}
+	}*/
 
 }
