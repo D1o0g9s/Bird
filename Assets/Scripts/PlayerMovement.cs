@@ -46,6 +46,12 @@ public class PlayerMovement : MonoBehaviour {
 
     private float flap = 0.0f;
 
+    private void OnCollisionEnter(Collision collision) {
+        speed = 0.0f;
+
+        gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, -5.0f, 0.0f);
+    }
+
     // Use this for initialization
     void Start () {
         lowerColliderScript = lowerCollider.GetComponent<TriggerTime>();
@@ -96,7 +102,7 @@ public class PlayerMovement : MonoBehaviour {
                 if (v.y < (GLIDE_WINGSPAN - 1.0f)) {
                     v = v - upwardDir * (GLIDE_WINGSPAN - wingspan) * MAX_Y_DECREMENT;
                 } else {
-                    v = v - upwardDir * (1.0f - wingspan) * MAX_Y_DECREMENT;
+                    v = v - upwardDir * (1.1f - wingspan) * MAX_Y_DECREMENT;
                 }
 
 
@@ -129,11 +135,15 @@ public class PlayerMovement : MonoBehaviour {
 
                 }
 
-                while (flap > 0.0) {
+                if (flap > 0.0) {
+                    if (flap > 5.0f)
+                        flap = 5.0f;
                     v.y += (flap < 0.5f) ? flap : 0.5f;
                     flap -= (flap < 0.5f) ? flap : 0.5f;
-                    speed += 0.005f;
+                    speed += 0.5f;
                     Debug.Log("flapping " + flap);
+                } else if (speed > 0.0f) {
+                    speed -= 0.001f;
                 }
 
                 
@@ -172,8 +182,10 @@ public class PlayerMovement : MonoBehaviour {
                 //turn right
                 //if ((leftY > centerY) && (rightY < centerY)){
                 //Debug.Log("before turn right " + gameObject.GetComponent<Rigidbody>().velocity);
-                v = Quaternion.Euler(0, rotAngle * Time.deltaTime * 15.0f, 0) * v;
-                gameObject.transform.Rotate(upwardDir, rotAngle * Time.deltaTime * 15.0f);
+                if (Mathf.Rad2Deg * Mathf.Abs(rotAngle) > 10) {
+                    v = Quaternion.Euler(0, rotAngle * Time.deltaTime * 50.0f, 0) * v;
+                    gameObject.transform.Rotate(upwardDir, rotAngle * Time.deltaTime * 50.0f);
+                }
                 //Debug.Log("turn right " + gameObject.GetComponent<Rigidbody>().velocity);
                 //Debug.Log("deltaTime " + Time.deltaTime);
                 /*} else {
@@ -190,12 +202,13 @@ public class PlayerMovement : MonoBehaviour {
                 //transform.position +=  2.0f * (forwardDir - turnOffset).normalized * Time.deltaTime;
                 //transform.Rotate(upwardDir, rotAngle);
 
-                v += speed * forwardDir;
+                v.x = speed * forwardDir.x;
+                v.z = speed * forwardDir.z;
 
-                Debug.Log(speed);
+                //Debug.Log(speed);
 
-                if (speed > 0.2f) {
-                    speed -= 0.01f;
+                if (speed > 15.0f) {
+                    speed -= 0.1f;
                 }
 
                 if (v.x > MAX_VELOCITY) {
