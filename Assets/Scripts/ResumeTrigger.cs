@@ -9,11 +9,11 @@ public class ResumeTrigger : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider other) {
 		if (other.gameObject == pauseLH || other.gameObject == pauseRH) {
-			SteamVR_Controller.Input ((int)trackedObj.index).TriggerHapticPulse(500);
+			//SteamVR_Controller.Input ((int)trackedObj.index).TriggerHapticPulse(500);
 
 			if (Input.GetKeyDown (KeyCode.JoystickButton7)) {
-				SteamVR_Controller.Input ((int)trackedObj.index).TriggerHapticPulse (500);
-				pauseMenuIsUp = false;
+				//SteamVR_Controller.Input ((int)trackedObj.index).TriggerHapticPulse (500);
+				UserInterface.pauseMenuIsUp = false;
 			}
 		}
 	}

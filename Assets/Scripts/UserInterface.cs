@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UserInterface : MonoBehaviour {
-	public bool pauseMenuIsUp = false;
+	public static bool pauseMenuIsUp = false;
 
 	[SerializeField] private GameObject pauseMenu;
 	[SerializeField] private GameObject restart;
@@ -12,9 +12,9 @@ public class UserInterface : MonoBehaviour {
 	[SerializeField] private GameObject pauseRH;
 	[SerializeField] private GameObject pauseLH;
 
-	RestartTrigger restart;
-	ResumeTrigger resume;
-	ExitTrigger exit;
+	RestartTrigger restartTrigger;
+	ResumeTrigger resumeTrigger;
+	ExitTrigger exitTrigger;
 
 	Vector3 previousVelocity;
 	Vector3 previousAngularVelocity;
@@ -22,9 +22,9 @@ public class UserInterface : MonoBehaviour {
 	//Object[] objects = FindObjectsOfType (typeof(GameObject));
 	// Use this for initialization
 	void Start () {
-		restart = restart.GetComponent<RestartTrigger> ();
-		resume = resume.GetComponent<ResumeTrigger> ();
-		exit = exit.GetComponent <ExitTrigger> ();
+		restartTrigger = restartTrigger.GetComponent<RestartTrigger> ();
+		resumeTrigger = resumeTrigger.GetComponent<ResumeTrigger> ();
+		exitTrigger = exitTrigger.GetComponent <ExitTrigger> ();
 
 		pauseMenu.SetActive (false);
 	}
@@ -37,7 +37,7 @@ public class UserInterface : MonoBehaviour {
 
 		if (pauseMenuIsUp) {
 			// pause gameplay for all objects except pause menu, raycast objects
-			previousVelocity = gameObject.GetComponent<Rigidbody>().velocity;
+			previousVelocity = gameObject.GetComponent<Rigidbody> ().velocity;
 			gameObject.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 
 			previousAngularVelocity = gameObject.GetComponent<Rigidbody> ().angularVelocity;
@@ -48,7 +48,7 @@ public class UserInterface : MonoBehaviour {
 			// set rayCast objects to active, require receiver
 
 			// pull up pause menu
-			pausMenu.SetActive (true);	
+			pauseMenu.SetActive (true);	
 			pauseRH.SetActive (true);
 			pauseLH.SetActive (true);
 
@@ -63,7 +63,8 @@ public class UserInterface : MonoBehaviour {
 		} else {
 			pauseMenu.SetActive (false);
 
-			GameObject.GetComponent<Rigidbody> ().velocity = previousVelocity;
-			GameObject.GetComponent<Rigidbody> ().angularVelocity = previousAngularVelocity;
+			gameObject.GetComponent<Rigidbody> ().velocity = previousVelocity;
+			gameObject.GetComponent<Rigidbody> ().angularVelocity = previousAngularVelocity;
+		}
 	}
 }
