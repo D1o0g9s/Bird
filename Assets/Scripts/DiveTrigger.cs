@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DiveTrigger : MonoBehaviour {
 
+    private AudioSource aud;
+
     [SerializeField] private GameObject leftCollider;
     [SerializeField] private GameObject rightCollider;
     [SerializeField] private float eulerAngleX;
@@ -24,6 +26,9 @@ public class DiveTrigger : MonoBehaviour {
 
     private void Start() {
         velocity = player.GetComponent<Rigidbody>().velocity;
+
+        aud = GetComponent<AudioSource>();
+        aud.Play();
     }
 
     private void OnTriggerEnter(Collider other) {

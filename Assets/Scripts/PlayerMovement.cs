@@ -23,7 +23,14 @@ public class PlayerMovement : MonoBehaviour {
 
     [SerializeField] private GameObject headRotator;
     //[SerializeField] private GameObject startInstructions;// Text that says "Stretch your wings!"
+
     //[SerializeField] private GameObject player; 
+
+        
+    public AudioClip flapSound;
+    public AudioClip collisionSound;
+
+    private AudioSource aud;
 
     TriggerTime lowerColliderScript;
     TriggerTime upperColliderScript;
@@ -50,13 +57,16 @@ public class PlayerMovement : MonoBehaviour {
         speed = 0.0f;
 
         gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, -5.0f, 0.0f);
+
+        aud.PlayOneShot(collisionSound, 1.0f);
     }
 
     // Use this for initialization
     void Start () {
         lowerColliderScript = lowerCollider.GetComponent<TriggerTime>();
         upperColliderScript = upperCollider.GetComponent<TriggerTime>();
-        gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f); 
+        gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+        aud = GetComponent<AudioSource>();
 
         //Debug.Log(gameObject.GetComponent<Rigidbody>().velocity);
         //gameObject.GetComponent<Rigidbody>().AddForce(0.0f, 0.0f, 10.0f, ForceMode.VelocityChange);
@@ -64,6 +74,7 @@ public class PlayerMovement : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate() {
+
         if (!UserInterface.pauseMenuIsUp) {
             forwardDir = new Vector3(transform.forward.x, 0.0f, transform.forward.z);
 
@@ -110,12 +121,13 @@ public class PlayerMovement : MonoBehaviour {
 
                 lUpperTick = upperColliderScript.leftCollisionTime;
 
-
                 if (lLowerTick != lowerColliderScript.leftCollisionTime && lLowerTick != 0) {
                     lLowerTick = lowerColliderScript.leftCollisionTime;
 
+                    aud.PlayOneShot(flapSound, 1.0f);
+
                     //Debug.Log("left " + 0.2f / (float) (lLowerTick - lUpperTick) * (float) TimeSpan.TicksPerSecond);
-                    flap += Mathf.Max(0.0f, Mathf.Min(0.1f / (float) (lLowerTick - lUpperTick) * (float) TimeSpan.TicksPerSecond, 3.0f));
+                    flap += Mathf.Max(0.0f, Mathf.Min(0.2f / (float) (lLowerTick - lUpperTick) * (float) TimeSpan.TicksPerSecond, 5.0f));
                     //gameObject.GetComponent<Rigidbody>().AddForce(0.0f, Mathf.Max(0.0f, Mathf.Min(2.0f / (float) (lLowerTick - lUpperTick) * (float) TimeSpan.TicksPerSecond, 50.0f)), 0.0f, ForceMode.Impulse);
                 } else {
                     lLowerTick = lowerColliderScript.leftCollisionTime;
@@ -127,8 +139,10 @@ public class PlayerMovement : MonoBehaviour {
                 if (rLowerTick != lowerColliderScript.rightCollisionTime && rLowerTick != 0) {
                     rLowerTick = lowerColliderScript.rightCollisionTime;
 
+                    aud.PlayOneShot(flapSound, 1.0f);
+
                     //Debug.Log("right " + 0.2f / (float) (rLowerTick - rUpperTick) * (float) TimeSpan.TicksPerSecond);
-                    flap += Mathf.Max(0.0f, Mathf.Min(0.1f / (float) (rLowerTick - rUpperTick) * (float) TimeSpan.TicksPerSecond, 3.0f));
+                    flap += Mathf.Max(0.0f, Mathf.Min(0.2f / (float) (rLowerTick - rUpperTick) * (float) TimeSpan.TicksPerSecond, 5.0f));
                     //gameObject.GetComponent<Rigidbody>().AddForce(0.0f, Mathf.Max(0.0f, Mathf.Min(2.0f / (float) (rLowerTick - rUpperTick) * (float) TimeSpan.TicksPerSecond, 50.0f)), 0.0f, ForceMode.Impulse);
                 } else {
                     rLowerTick = lowerColliderScript.rightCollisionTime;
@@ -136,14 +150,14 @@ public class PlayerMovement : MonoBehaviour {
                 }
 
                 if (flap > 0.0) {
-                    if (flap > 5.0f)
-                        flap = 5.0f;
+                    if (flap > 10.0f)
+                        flap = 10.0f;
                     v.y += (flap < 0.5f) ? flap : 0.5f;
-                    flap -= (flap < 0.5f) ? flap : 0.5f;
-                    speed += 0.5f;
+                    flap -= (flap < 0.5f) ? flap : 1.0f;
+                    speed += 1.0f;
                     Debug.Log("flapping " + flap);
                 } else if (speed > 0.0f) {
-                    speed -= 0.001f;
+                    speed -= 0.01f;
                 }
 
                 
@@ -207,7 +221,7 @@ public class PlayerMovement : MonoBehaviour {
 
                 //Debug.Log(speed);
 
-                if (speed > 15.0f) {
+                if (speed > 100.0f) {
                     speed -= 0.1f;
                 }
 
