@@ -113,7 +113,7 @@ namespace Parabox.InteractivePrimitives
 
 			m.RecalculateNormals();
 
-			m.Optimize();
+			//m.Optimize();
 
 			GetComponent<MeshFilter>().sharedMesh = m;
 

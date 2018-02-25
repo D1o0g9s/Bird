@@ -69,7 +69,7 @@ namespace Parabox.InteractivePrimitives
 			m.uv = new Vector2[m.vertices.Length];
 
 			m.RecalculateNormals();
-			m.Optimize();
+			//m.Optimize();
 
 			GetComponent<MeshFilter>().sharedMesh = m;
 			GetComponent<MeshRenderer>().sharedMaterial = DefaultDiffuse;
